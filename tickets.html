@@ -8,8 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="Tooplate">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-
-    <title>Collaborate - Sponsership and Business</title>
+    
+    <title>Organisations List</title>
 
 
     <!-- Additional CSS Files -->
@@ -21,16 +21,9 @@
 
     <link rel="stylesheet" href="assets/css/tooplate-artxibition.css">
 
-    <link rel="stylesheet" href="Self Code/Faq_Footer.css">
-    
-    <link rel="stylesheet" href="Self Code/Organiser side/Events/Events.css">
-<!--
+    <link rel="stylesheet" href="style.css">
 
-Tooplate 2125 ArtXibition
 
-https://www.tooplate.com/view/2125-artxibition
-
--->
     </head>
     
     <body>
@@ -48,153 +41,201 @@ https://www.tooplate.com/view/2125-artxibition
     </div>
     <!-- ***** Preloader End ***** -->
     
-    
+    <!-- ***** Pre HEader ***** -->
+    <!-- <div class="pre-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                    <span>Hey! The Show Is Starting In 5 Days.</span>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div class="text-button">
+                        <a href="rent-venue.html">Contact Us Now! <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
 
     <!-- ***** Header Area Start ***** -->
     <header class="header-area header-sticky">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="main-nav">
-                        <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">CleanUp<em>Connect</em></a>
-                        <!-- ***** Logo End ***** -->
-                        <!-- ***** Menu Start ***** -->
-                        <ul class="nav">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="Self Code/User side/ProfilePage/index.html">My Profile</a></li>
-                            <li><a href="event-details.html" class="active">Events</a></li> 
-                            <li><a href="tickets.html">Sponserships & Business</a></li> 
-                        </ul>        
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
-                        <!-- ***** Menu End ***** -->
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
+      <div class="container">
+          <div class="row">
+              <div class="col-12">
+                  <nav class="main-nav">
+                      <!-- ***** Logo Start ***** -->
+                      <a href="index.html" class="logo">CleanUp<em>Connect</em></a>
+                      <!-- ***** Logo End ***** -->
+                      <!-- ***** Menu Start ***** -->
+                      <ul class="nav">
+                          <li><a href="index.html" class="active">Home</a></li>
+                          <li><a href="about.html">About Us</a></li>
+                          <li><a href="Self Code/User side/ProfilePage/index.html">My Profile</a></li>
+                          <li><a href="event-details.html">Events</a></li> 
+                          <li><a href="tickets.html">Sponsorships & Business</a></li> 
+                      </ul>        
+                      <a class='menu-trigger'>
+                          <span>Menu</span>
+                      </a>
+                      <!-- ***** Menu End ***** -->
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** About Us Page ***** -->
-    <div class="page-heading-rent-venue">
+    <!-- <div class="page-heading-rent-venue">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>Collaboration details</h2>
-                    <span>Check out Sponsership and Collaboration opportunities and be part of us.</span>
+                    <h2>Event Details</h2>
+                    <span>Check out the latest cleanup events.</span>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="shows-events-schedule">
         <div class="container">
             <div class="row">
-                <!-- <div class="col-lg-12">
+                <div class="col-lg-12">
                     <div class="section-heading">
-                        <h2>Business Listing</h2>
+                        <h2>Organisations List</h2>
                     </div>
-                </div> -->
-                <div class="container mt-5">
-                    <h2>All Registered Businesses</h2>
-                    <div class="row" id="businessesList">
-                      <!-- Business Cards will be dynamically added here -->
-                    </div>
-                  </div>
-                
-                  <!-- Include Bootstrap JS (if needed) -->
-                  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
-                 
-                  <script src="businesses.js"></script>
-                <div class="container mt-5">
-                    <h2>All Registered Businesses</h2>
-                    <div class="row" id="businessesList">
-                      <!-- Business Cards will be dynamically added here -->
-                    </div>
-                  </div>
-                
-                  <!-- Include Bootstrap JS (if needed) -->
-                  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
-                 
-                  <script src="businesses.js"></script>
-                </body>
-                
-                <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-                <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-                
-                <script type="module">
-                
-                  // Import necessary Firebase modules
-                  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-                  import { getFirestore, doc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-                
-                  // Initialize Firebase
-                  const firebaseConfig = {
-                    apiKey: "AIzaSyA1NgEx9i0gCwGvA97ouWZWQBkwuiAsrm0",
-                    authDomain: "cleanup-connect-ebaae.firebaseapp.com",
-                    projectId: "cleanup-connect-ebaae",
-                    storageBucket: "cleanup-connect-ebaae.appspot.com",
-                    messagingSenderId: "206124027034",
-                    appId: "1:206124027034:web:423e5574fce9877e562323"
-                  };
-                
-                  firebase.initializeApp(firebaseConfig);
-                  const db = firebase.firestore();
-                
-                
-                    document.addEventListener('DOMContentLoaded', async function () {
-                    const businessesList = document.getElementById('businessesList');
-                
-                    // Reference to the Businesses collection
-                    const businessesRef = db.collection('Business');
-                
-                    // Get all businesses
-                    const businessesSnapshot = await businessesRef.get();
-                
-                    // Loop through the documents
-                    businessesSnapshot.forEach(doc => {
-                      const businessData = doc.data();
-                      const eid = doc.id;
-                
-                      console.log(1212);
-                
-                      // Create a new card element for each business
-                      const card = document.createElement('div');
-                      card.classList.add('col-md-4', 'mb-4');
-                
-                      // Set card content
-                      card.innerHTML = `
-                        <div class="card">
-                          <div class="card-body">
-                            <h5 class="card-title">${businessData.businessName}</h5>
-                            <p class="card-text">${businessData.businessDescription}</p>
-                            <p class="card-text">Location: ${businessData.businessLocation}</p>
-                            <a href="#" class="btn btn-primary">Connect</a>
-                            <a href="../Display Business/index.html?id=${eid}" class="btn btn-primary">Details</a>
-                          </div>
-                        </div>
-                      `;
-                
-                      // Append the card to the list
-                      businessesList.appendChild(card);
-                    });
-                  });
-                
-                </script>
-
-
-
-                
-
-
-
-
-                <!-- <div class="col-lg-12">
+                </div>
+                <div class="col-lg-12">
+                    <ul>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="title">
+                                        <h4>Cerebra Integrated Technologies</h4>
+                                        <!-- <span>140 Tickets Available</span> -->
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <!-- <div class="time"><span><i class="fa fa-clock-o"></i> Sep 16, 2021<br>18:00 to 22:00</span></div> -->
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="place"><span><i class="fa fa-map-marker"></i>Bangalore, <br>India</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="main-dark-button">
+                                        <a href="ticket-details.html">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="title">
+                                        <h4>Gala Rock Festival</h4>
+                                        <span>128 Tickets Available</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="time"><span><i class="fa fa-clock-o"></i> Sep 18, 2021<br>18:00 to 22:00</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="place"><span><i class="fa fa-map-marker"></i>Copacabana Beach, <br>Rio de Janeiro</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="main-dark-button">
+                                        <a href="ticket-details.html">Purchase Tickets</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="title">
+                                        <h4>Hip Hop Farm</h4>
+                                        <span>160 Tickets Available</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="time"><span><i class="fa fa-clock-o"></i> Sep 20, 2021<br>18:00 to 22:00</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="place"><span><i class="fa fa-map-marker"></i>Copacabana Beach, <br>Rio de Janeiro</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="main-dark-button">
+                                        <a href="ticket-details.html">Purchase Tickets</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="title">
+                                        <h4>Balada Music</h4>
+                                        <span>240 Tickets Available</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="time"><span><i class="fa fa-clock-o"></i> Oct 14, 2021<br>18:00 to 22:00</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="place"><span><i class="fa fa-map-marker"></i>Copacabana Beach, <br>Rio de Janeiro</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="main-dark-button">
+                                        <a href="ticket-details.html">Purchase Tickets</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="title">
+                                        <h4>Beerland Festival</h4>
+                                        <span>360 Tickets Available</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="time"><span><i class="fa fa-clock-o"></i> Oct 20, 2021<br>18:00 to 22:00</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="place"><span><i class="fa fa-map-marker"></i>Copacabana Beach, <br>Rio de Janeiro</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="main-dark-button">
+                                        <a href="ticket-details.html">Purchase Tickets</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="title">
+                                        <h4>Bump & Bass</h4>
+                                        <span>168 Tickets Available</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="time"><span><i class="fa fa-clock-o"></i> Oct 22, 2021<br>18:00 to 22:00</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="place"><span><i class="fa fa-map-marker"></i>Copacabana Beach, <br>Rio de Janeiro</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="main-dark-button">
+                                        <a href="ticket-details.html">Purchase Tickets</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-12">
                     <div class="pagination">
                         <ul>
                             <li><a href="#">Prev</a></li>
@@ -204,84 +245,136 @@ https://www.tooplate.com/view/2125-artxibition
                             <li><a href="#">Next</a></li>
                         </ul>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
 
-    
-
-    <!-- FAQ's -->
-
-    <header class="cd-header flex flex-column flex-center" onclick="window.location.href='Self Code/faq-template-master/index.html'">
-        <div class="text-component text-center">
-          <h1>FAQ Template</h1>
-          <p>👈 Click Here for FAQ's</p>
+    <!-- *** Subscribe *** -->
+    <!-- <div class="subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h4>Subscribe Our Newsletter:</h4>
+                </div>
+                <div class="col-lg-8">
+                    <form id="subscribe" action="" method="get">
+                        <div class="row">
+                          <div class="col-lg-9">
+                            <fieldset>
+                              <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email Address" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-3">
+                            <fieldset>
+                              <button type="submit" id="form-submit" class="main-dark-button">Submit</button>
+                            </fieldset>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </header>
-      
+    </div> -->
 
+<!-- Site footer -->
+<footer class="site-footer" style="background-color: #333;">
+  <div class="containersss">
+    <div class="row">
+      <div class="col-sm-12 col-md-6" style="padding-left: 50px;">
+        <h6>About</h6>
+        <p class="text-justify">Welcome to CleanConnect, where passion meets purpose in our journey towards a cleaner, greener tomorrow. United by a shared vision of environmental stewardship, we're on a mission to inspire and empower individuals worldwide to take meaningful action for our planet. Through collaborative initiatives, innovative projects, and community engagement, we're driving positive change one step at a time. Join us in creating a world where sustainability isn't just a goal; it's a way of life. Together, let's make a difference and leave a lasting legacy for future generations.
 
+        </p>
+      </div>
 
+      <div class="col-xs-6 col-md-3" style="padding-left: 150px;">
+        <h6>Categories</h6>
+        <ul class="footer-links">
+          <li><a href="http://scanfcode.com/category/c-language/">workshops</a></li>
+          <li><a href="http://scanfcode.com/category/front-end-development/">Cleanup Drives</a></li>
+          <li><a href="http://scanfcode.com/category/back-end-development/">Gatherings</a></li>
+          <li><a href="http://scanfcode.com/category/java-programming-language/">Communities</a></li>
+        </ul>
+      </div>
 
+      <div class="col-xs-6 col-md-3">
+        <h6>Quick Links</h6>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#event_display">Events</a></li>
+          <li><a href="#aboutus">About Us</a></li>
+          <li><a href="#Contact us">Contact Us</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <hr>
+  </div>
+  <div class="containersss" >
+    <div class="row">
+      <div class="col-md-8 col-sm-6 col-xs-12">
+        <p class="copyright-text" >Copyright &copy; 2024 All Rights Reserved by 
+     <a href="#">Cleanup Connect</a>.
+        </p>
+      </div>
 
-<!-- Footer Section -->
-      <!-- Site footer -->
-      <footer class="site-footer" style="background-color: #333;">
-        <div class="containersss">
-          <div class="row">
-            <div class="col-sm-12 col-md-6">
-              <h6>About</h6>
-              <p class="text-justify">Welcome to CleanConnect, where passion meets purpose in our journey towards a cleaner, greener tomorrow. United by a shared vision of environmental stewardship, we're on a mission to inspire and empower individuals worldwide to take meaningful action for our planet. Through collaborative initiatives, innovative projects, and community engagement, we're driving positive change one step at a time. Join us in creating a world where sustainability isn't just a goal; it's a way of life. Together, let's make a difference and leave a lasting legacy for future generations.
-
-              </p>
-            </div>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <ul class="social-icons">
+          <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+          <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+          <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
   
-            <div class="col-xs-6 col-md-3">
-              <h6>Categories</h6>
-              <ul class="footer-links">
-                <li><a href="http://scanfcode.com/category/c-language/">workshops</a></li>
-                <li><a href="http://scanfcode.com/category/front-end-development/">Cleanup Drives</a></li>
-                <li><a href="http://scanfcode.com/category/back-end-development/">Gatherings</a></li>
-                <li><a href="http://scanfcode.com/category/java-programming-language/">Communities</a></li>
-              </ul>
-            </div>
-  
-            <div class="col-xs-6 col-md-3">
-              <h6>Quick Links</h6>
-              <ul class="footer-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#event_display">Events</a></li>
-                <li><a href="#aboutus">About Us</a></li>
-                <li><a href="#Contact us">Contact Us</a></li>
-                
-              </ul>
-            </div>
-          </div>
-          <hr>
-        </div>
-        <div class="containersss" >
-          <div class="row">
-            <div class="col-md-8 col-sm-6 col-xs-12">
-              <p class="copyright-text">Copyright &copy; 2024 All Rights Reserved by 
-           <a href="#">Cleanup Connect</a>.
-              </p>
-            </div>
-  
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <ul class="social-icons">
-                <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
-    
-    
-    
+  <!-- Some issue with the footer text, unable to change the color to white -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('.pagination').addEventListener('click', function (e) {
+            if (e.target.classList.contains('page-link')) {
+                e.preventDefault();
+                var pageLinks = document.querySelectorAll('.pagination .page-link');
+                pageLinks.forEach(function (link) {
+                    link.classList.remove('active');
+                });
+                e.target.classList.add('active');
+                var page = e.target.dataset.page;
+                console.log('Load events for page: ' + page);
+            }
+        });
+
+        document.querySelector('.pagination').addEventListener('click', function (e) {
+            if (e.target.classList.contains('prev-page')) {
+                e.preventDefault();
+                var currentPage = document.querySelector('.pagination .page-link.active').dataset.page;
+                if (currentPage > 1) {
+                    var prevPage = parseInt(currentPage) - 1;
+                    var prevPageLink = document.querySelector('.pagination .page-link[data-page="' + prevPage + '"]');
+                    prevPageLink.classList.add('active');
+                    console.log('Load events for page: ' + prevPage);
+                }
+            }
+        });
+
+        document.querySelector('.pagination').addEventListener('click', function (e) {
+            if (e.target.classList.contains('next-page')) {
+                e.preventDefault();
+                var currentPage = document.querySelector('.pagination .page-link.active').dataset.page;
+                var totalPages = document.querySelectorAll('.pagination .page-link').length;
+                if (currentPage < totalPages) {
+                    var nextPage = parseInt(currentPage) + 1;
+                    var nextPageLink = document.querySelector('.pagination .page-link[data-page="' + nextPage + '"]');
+                    nextPageLink.classList.add('active');
+                    console.log('Load events for page: ' + nextPage);
+                }
+            }
+        });
+    });
+</script>
 
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>
@@ -304,131 +397,4 @@ https://www.tooplate.com/view/2125-artxibition
 
   </body>
 
-
-  <!-- <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore , doc, getDoc, getDocs, collection, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Initialize Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyA1NgEx9i0gCwGvA97ouWZWQBkwuiAsrm0",
-      authDomain: "cleanup-connect-ebaae.firebaseapp.com",
-      databaseURL: "https://cleanup-connect-ebaae-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "cleanup-connect-ebaae",
-      storageBucket: "cleanup-connect-ebaae.appspot.com",
-      messagingSenderId: "206124027034",
-      appId: "1:206124027034:web:423e5574fce9877e562323"
-    };
-    
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-  
-    // Reference to the events collection
-    const eventsRef = db.collection("Events");
-  
-    // Get all events and display them as cards
-    eventsRef.get().then((querySnapshot) => {
-      const eventsList = document.getElementById("eventsList");
-      
-      querySnapshot.forEach((doc) => {
-        const eventData = doc.data();
-  
-        // Create HTML for each event card
-        const card = document.createElement("div");
-        card.classList.add("col-md-4", "mb-4");
-  
-        const cardHtml = `
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">${eventData.eventTitle}</h5>
-              <p class="card-text"><strong>Date:</strong> ${eventData.eventDate}</p>
-              <p class="card-text"><strong>Time:</strong> ${eventData.eventTime}</p>
-              <p class="card-text"><strong>Location:</strong> ${eventData.eventLocation}</p>
-              <a href="../Display Event/index.html?id=${doc.id}" class="btn btn-primary">View Details</a>
-            </div>
-          </div>
-        `;
-
-        console.log(doc.id);
-  
-        card.innerHTML = cardHtml;
-        eventsList.appendChild(card);
-      });
-    }).catch((error) => {
-      console.log("Error getting events: ", error);
-    });
-  });
-</script> -->
-
-
-
-
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
-
-<script type="module">
-
-    // Import necessary Firebase modules
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-  
-    // Initialize Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyA1NgEx9i0gCwGvA97ouWZWQBkwuiAsrm0",
-      authDomain: "cleanup-connect-ebaae.firebaseapp.com",
-      projectId: "cleanup-connect-ebaae",
-      storageBucket: "cleanup-connect-ebaae.appspot.com",
-      messagingSenderId: "206124027034",
-      appId: "1:206124027034:web:423e5574fce9877e562323"
-    };
-  
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-  
-  
-      document.addEventListener('DOMContentLoaded', async function () {
-      const businessesList = document.getElementById('businessesList');
-  
-      // Reference to the Businesses collection
-      const businessesRef = db.collection('Business');
-  
-      // Get all businesses
-      const businessesSnapshot = await businessesRef.get();
-  
-      // Loop through the documents
-      businessesSnapshot.forEach(doc => {
-        const businessData = doc.data();
-        const eid = doc.id;
-  
-        console.log(1212);
-  
-        // Create a new card element for each business
-        const card = document.createElement('div');
-        card.classList.add('col-md-4', 'mb-4');
-  
-        // Set card content
-        card.innerHTML = `
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">${businessData.businessName}</h5>
-              <p class="card-text">${businessData.businessDescription}</p>
-              <p class="card-text">Location: ${businessData.businessLocation}</p>
-              <a href="#" class="btn btn-primary">Connect</a>
-              <a href="../Display Business/index.html?id=${eid}" class="btn btn-primary">Details</a>
-            </div>
-          </div>
-        `;
-  
-        // Append the card to the list
-        businessesList.appendChild(card);
-      });
-    });
-  
-  </script>
-  
 </html>

@@ -122,7 +122,6 @@
   document.addEventListener('DOMContentLoaded', async function () {
       // Get user email from localStorage
       const userEmail = localStorage.getItem('userEmail');
-      console.log(userEmail);
 
       // Reference to the user document
       const userDocRef = doc(db, 'Users', userEmail);
