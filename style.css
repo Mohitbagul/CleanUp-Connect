@@ -10,7 +10,9 @@
 
 
   /* footer */
-
+ :root{
+	 overflow-x:hidden;
+ }
 
   .text-justify{
     color: white;
