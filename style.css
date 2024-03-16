@@ -1,7 +1,22 @@
 
+/*footer
+  testinomial
+  FAQ
+*/
+
+
+
+
+
 
   /* footer */
 
+
+  .text-justify{
+    color: white;
+   }
+  
+   
   .site-footer
   {
     background-color:#333333;
@@ -36,18 +51,22 @@
     color:#3366cc;
     text-decoration:none;
   }
+
+
+ 
   .footer-links
   {
-    padding-left:0;
-    list-style:none
+    padding-left:0px;
+    list-style:none;
+    padding-top: 30px;
   }
   .footer-links li
   {
     display:block
   }
-  .footer-links a
+  .footer-links li a
   {
-    color:#737373
+    color:white
   }
   .footer-links a:active,.footer-links a:focus,.footer-links a:hover
   {
@@ -74,7 +93,9 @@
   }
   .copyright-text
   {
-    margin:0
+    margin:0;
+    color: azure;
+    padding-left: 50px;
   }
   @media (max-width:991px)
   {
@@ -189,6 +210,14 @@
       .carousel-inner .carousel-item {
         width: auto; /* Adjust the width of the carousel items */
       }}
+
+
+
+
+
+
+
+
 
 
 
@@ -386,6 +415,13 @@ a:link,a:active,a:visited,a:hover{
 
 
 
+
+
+
+
+
+
+
       /* FAQ's */
 
       .cd-header {
@@ -437,3 +473,5 @@ a:link,a:active,a:visited,a:hover{
       }
       
       
+
+ 
