@@ -1,0 +1,57 @@
+/* Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container Styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Rating Styles */
+#rating {
+    padding: 8px;
+    width: 100%;
+}
+
+/* Submit Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .form-group {
+        margin-bottom: 15px;
+    }
+}
+
+/* Success Message Styles */
+.success-message {
+    color: #28a745;
+    margin-top: 10px;
+    font-size: 18px;
+}

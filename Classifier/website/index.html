@@ -1,0 +1,188 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Waste Classification</title>
+</head>
+<body>
+    <h1>Waste Classification</h1>
+    <input type="file" id="fileInput">
+    <button onclick="classifyWaste()">Classify</button>
+    <p id="result"></p>
+
+    <script>
+        function classifyWaste() {
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/classify', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = 'Predicted category: ' + data.prediction;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Waste Classification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .upload-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px 15px;
+            font-size: 16px;
+            text-align: center;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .upload-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            height: auto;
+            display: none;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        .prediction-card {
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .prediction-card h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .prediction-card p {
+            color: #666;
+        }
+
+        .btn-clear {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 15px;
+            font-size: 16px;
+            text-align: center;
+            color: #fff;
+            background-color: #dc3545;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-clear:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Waste Classification</h1>
+        <label for="fileInput" class="upload-btn">Select Image</label>
+        <input type="file" id="fileInput" onchange="previewImage(event)">
+        <img id="imagePreview" src="#" alt="Uploaded Image">
+        <button onclick="classifyWaste()" class="upload-btn">Classify</button>
+        <div id="result" class="prediction-card"></div>
+        <button onclick="clearResult()" class="btn-clear">Clear</button>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            var image = document.getElementById('imagePreview');
+            image.style.display = 'block';
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        function classifyWaste() {
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/classify', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `
+                    <div class="prediction-card">
+                        <h2>Predicted Category</h2>
+                        <p>${data.prediction}</p>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function clearResult() {
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+            var image = document.getElementById('imagePreview');
+            image.style.display = 'none';
+            document.getElementById('fileInput').value = '';
+        }
+    </script>
+</body>
+</html>
