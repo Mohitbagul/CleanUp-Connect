@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> SignUp </title>
+    <link rel="stylesheet" href="signup.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+      <form action="#">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details" >Full Name</span>
+            <input type="text" placeholder="Enter your name" required id="name_data">
+          </div>
+          <div class="input-box">
+            <span class="details">Username</span>
+            <input type="text" placeholder="Enter your username" required id="username_data">
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="text" placeholder="Enter your email" required id="email_data">
+          </div>
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            <input type="text" placeholder="Enter your number" required id="phone_data">
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="text" placeholder="Enter your password" required id="password_data">
+          </div>
+          <div class="input-box">
+            <span class="details">City</span>
+            <input type="text" placeholder="Confirm your password" required id="city_data">
+          </div>
+        </div>
+        <div class="gender-details">
+          <input type="radio" name="gender" id="dot-1">
+          <input type="radio" name="gender" id="dot-2">
+          <input type="radio" name="gender" id="dot-3">
+          <span class="gender-title">Gender</span>
+          <div class="category">
+            <label for="dot-1">
+            <span class="dot one"></span>
+            <span class="gender">Male</span>
+          </label>
+          <label for="dot-2">
+            <span class="dot two"></span>
+            <span class="gender">Female</span>
+          </label>
+          <label for="dot-3">
+            <span class="dot three"></span>
+            <span class="gender">Prefer not to say</span>
+            </label>
+          </div>
+        </div>
+        <div class="button" id="register_user">
+          <input type="submit" value="Register">
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyA1NgEx9i0gCwGvA97ouWZWQBkwuiAsrm0",
+    authDomain: "cleanup-connect-ebaae.firebaseapp.com",
+    databaseURL: "https://cleanup-connect-ebaae-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "cleanup-connect-ebaae",
+    storageBucket: "cleanup-connect-ebaae.appspot.com",
+    messagingSenderId: "206124027034",
+    appId: "1:206124027034:web:423e5574fce9877e562323"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app); // Get Auth instance after initializing Firebase
+  const db = getFirestore(app); // Pass Firebase app instance to Firestore
+
+  // Wait for DOM content to load
+  document.addEventListener("DOMContentLoaded", function() {
+    // Register user button click event listener
+    document.getElementById('register_user').addEventListener('click', async (e) => {
+      e.preventDefault();
+      console.log("1234");
+      // Get input values
+      const name = document.getElementById("name_data").value;
+      const username = document.getElementById("username_data").value;
+      const email = document.getElementById("email_data").value;
+      const phone = document.getElementById("phone_data").value;
+      const city = document.getElementById("city_data").value;
+      const password = document.getElementById("password_data").value;
+
+      try {
+        // Create user with email and password
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Add user details to Firestore
+        const docRef = await addDoc(collection(db, "Users"), {
+          username: username,
+          phone: phone,
+          email: email,
+          name: name,
+          city: city,
+        });
+
+        // Display success message
+        alert("User details stored!!");
+        console.log("Document successfully written!");
+
+        // Store user email and username in local storage
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('userName', username);
+        alert('User created!!');
+
+        window.location.href = "../index.html";
+
+        // Redirect or do something else after successful registration
+      } catch (error) {
+        // Display error message
+        console.error("Error:", error.message);
+        alert(error.message);
+      }
+    });
+  });
+</script>
+</html>
+<!-- ala kA ata -->
