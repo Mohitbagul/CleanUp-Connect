@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organiser Dashboard</title>
+  <!-- Include Bootstrap CSS (or any other styling framework) -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Link to Custom CSS -->
+  <link rel="stylesheet" href="CSS/dashboard.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/owl-carousel.css">
+
+    <link rel="stylesheet" href="assets/css/tooplate-artxibition.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo">CleanUp<em>Connect</em></a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="index.html" class="active">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="Self Code/User side/ProfilePage/index.html">My Profile</a></li>
+                            <li><a href="event-details.html">Events</a></li> 
+                            <li><a href="tickets.html">Sponserships & Business</a></li> 
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Event Details Section -->
+        <div class="dashboard-section-Event-Details">
+          <h2>Event Details</h2>
+          <div id="eventDetails">
+            <!-- Event details will be dynamically added here -->
+          </div>
+          <button class="btn btn-primary" id="editEventBtn">Edit Event</button>
+        </div>
+  
+        <!-- Collaboration Section -->
+        <div class="dashboard-section-Collaboration">
+          <h2>Collaboration</h2>
+          <div id="collaborator">
+            <!-- Collaborator details will be dynamically added here -->
+          </div>
+          <button class="btn btn-success" id="collaborateBtn">Collaborate</button>
+        </div>
+  
+        <!-- Waste Info Section -->
+        <div class="dashboard-section-Waste-Info">
+          <h2>Waste Info</h2>
+          <form id="wasteForm">
+            <!-- Waste info form will be here -->
+          </form>
+        </div>
+  
+        <!-- Gallery Section -->
+        <div class="dashboard-section-Gallery">
+          <h2>Gallery</h2>
+          <div id="imageGallery">
+            <!-- Uploaded images will be displayed here -->
+          </div>
+          <input type="file" id="imageUpload" accept="image/*">
+          <button class="btn btn-primary" id="uploadBtn">Upload Image</button>
+        </div>
+      </div>
+  
+      <div class="col-md-4">
+        <!-- Participants Section -->
+        <div class="dashboard-section">
+          <h2>Participants</h2>
+          <div id="participantsTable">
+            <!-- Participants table will be dynamically added here -->
+          </div>
+          <p>Total Registrations: <span id="totalRegistrations">0</span></p>
+          <p>Gender Distribution:</p>
+          <div id="genderDistribution">
+            <!-- Gender distribution chart will be dynamically added here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Footer Section -->
+      <!-- Site footer -->
+      <footer class="site-footer" style="background-color: #333;">
+        <div class="containersss">
+          <div class="row">
+            <div class="col-sm-12 col-md-6" style="padding-left: 50px;">
+              <h6>About</h6>
+              <p class="text-justify">Welcome to CleanConnect, where passion meets purpose in our journey towards a cleaner, greener tomorrow. United by a shared vision of environmental stewardship, we're on a mission to inspire and empower individuals worldwide to take meaningful action for our planet. Through collaborative initiatives, innovative projects, and community engagement, we're driving positive change one step at a time. Join us in creating a world where sustainability isn't just a goal; it's a way of life. Together, let's make a difference and leave a lasting legacy for future generations.
+
+              </p>
+            </div>
+  
+            <div class="col-xs-6 col-md-3" style="padding-left: 150px;">
+              <h6>Categories</h6>
+              <ul class="footer-links">
+                <li><a href="http://scanfcode.com/category/c-language/">workshops</a></li>
+                <li><a href="http://scanfcode.com/category/front-end-development/">Cleanup Drives</a></li>
+                <li><a href="http://scanfcode.com/category/back-end-development/">Gatherings</a></li>
+                <li><a href="http://scanfcode.com/category/java-programming-language/">Communities</a></li>
+              </ul>
+            </div>
+  
+            <div class="col-xs-6 col-md-3">
+              <h6>Quick Links</h6>
+              <ul class="footer-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#event_display">Events</a></li>
+                <li><a href="#aboutus">About Us</a></li>
+                <li><a href="#Contact us">Contact Us</a></li>
+                
+              </ul>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div class="containersss" >
+          <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+              <p class="copyright-text" >Copyright &copy; 2024 All Rights Reserved by 
+           <a href="#">Cleanup Connect</a>.
+              </p>
+            </div>
+  
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <ul class="social-icons">
+                <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+
+
+  
+  <!-- Include Bootstrap JS (if needed) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+  <!-- Include Firebase SDK and Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
+  <!-- Include Custom JavaScript -->
+  <script src="dashboard.js"></script>
+</body>
+</html>
