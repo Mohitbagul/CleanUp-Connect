@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Registration</title>
+  <!-- Include Bootstrap CSS (or any other styling framework) -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Link to Custom CSS -->
+  <link rel="stylesheet" href="business_registration.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>Business Registration</h2>
+    <!-- Error Messages Display -->
+    <div id="errorMessages"></div>
+    
+    <form id="businessForm">
+      <!-- Business Name -->
+      <div class="form-group">
+        <label for="businessName">Business Name:</label>
+        <input type="text" class="form-control" id="businessName" name="businessName" placeholder="Enter Business Name" required>
+      </div>
+
+      <!-- Business Description -->
+      <div class="form-group">
+        <label for="businessDescription">Business Description:</label>
+        <textarea class="form-control" id="businessDescription" name="businessDescription" rows="5" placeholder="Enter Business Description" required></textarea>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="form-group">
+        <label for="contactEmail">Contact Email:</label>
+        <input type="email" class="form-control" id="contactEmail" name="contactEmail" placeholder="Enter Contact Email" required>
+        <div class="invalid-feedback">Please enter a valid email address</div>
+      </div>
+
+      <!-- Contact Number -->
+      <div class="form-group">
+        <label for="contactNumber">Contact Number:</label>
+        <input type="text" class="form-control" id="contactNumber" name="contactNumber" placeholder="Enter Contact Number" required>
+      </div>
+
+      <!-- Business Location -->
+      <div class="form-group">
+        <label for="businessLocation">Business Location:</label>
+        <input type="text" class="form-control" id="businessLocation" name="businessLocation" placeholder="Enter Business Location" required>
+      </div>
+
+      <!-- Business Type -->
+      <div class="form-group">
+        <label for="businessType">Business Type:</label>
+        <select class="form-control" id="businessType" name="businessType" required>
+          <option value="">Select Business Type</option>
+          <option value="Restaurant">Restaurant</option>
+          <option value="Retail">Retail</option>
+          <option value="Technology">Technology</option>
+          <option value="Other">Other</option> <!-- Option for Other -->
+        </select>
+      </div>
+
+      <!-- Other Business Type (if "Other" selected) -->
+      <div class="form-group" id="otherBusinessTypeGroup" style="display: none;">
+        <label for="otherBusinessType">Other Business Type:</label>
+        <input type="text" class="form-control" id="otherBusinessType" name="otherBusinessType" placeholder="Enter Other Business Type">
+      </div>
+
+      <!-- Business Interests -->
+      <div class="form-group">
+        <label>Business Interests:</label>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="sponsorship" name="businessInterests" value="Sponsorship">
+          <label class="form-check-label" for="sponsorship">Interested in Sponsorship</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="collectWaste" name="businessInterests" value="CollectWaste">
+          <label class="form-check-label" for="collectWaste">Interested in Collecting Waste</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="otherInterests" name="businessInterests" value="OtherInterests">
+          <label class="form-check-label" for="otherInterests">Other (Please Specify)</label>
+        </div>
+      </div>
+
+      <!-- Preferred Waste Types -->
+      <div class="form-group">
+        <label for="preferredWaste">Preferred Waste Types (if applicable):</label>
+        <input type="text" class="form-control" id="preferredWaste" name="preferredWaste" placeholder="Enter Preferred Waste Types">
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" id="register_business">Register Business</button>
+    </form>
+  </div>
+
+  <!-- Include Bootstrap JS (if needed) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+  <!-- Include Custom JavaScript -->
+  <script src="business.js"></script>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+import { getFirestore, collection, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyA1NgEx9i0gCwGvA97ouWZWQBkwuiAsrm0",
+    authDomain: "cleanup-connect-ebaae.firebaseapp.com",
+    databaseURL: "https://cleanup-connect-ebaae-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "cleanup-connect-ebaae",
+    storageBucket: "cleanup-connect-ebaae.appspot.com",
+    messagingSenderId: "206124027034",
+    appId: "1:206124027034:web:423e5574fce9877e562323"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app); // Pass Firebase app instance to Firestore
+
+  // Wait for DOM content to load
+  document.querySelector('form').addEventListener('submit',  async function(e) {
+      e.preventDefault();
+      // Get input values
+      const businessName = document.getElementById("businessName").value;
+      const businessDescription = document.getElementById("businessDescription").value;
+      const contactEmail = document.getElementById("contactEmail").value;
+      const contactNumber = document.getElementById("contactNumber").value;
+      const businessLocation = document.getElementById("businessLocation").value;
+      const businessType = document.getElementById("businessType").value;
+      const preferredWaste = document.getElementById("preferredWaste").value;
+
+      try {
+        // Add user details to Firestore
+        const userRef = doc(db, "Business", businessName);
+          await setDoc(userRef, {
+            businessName: businessName,
+            businessDescription: businessDescription,
+            contactEmail: contactEmail,
+            contactNumber: contactNumber,
+            businessLocation: businessLocation,
+            businessType: businessType,
+            preferredWaste: preferredWaste
+        });
+
+        // Display success message
+        // console.log("Document written with ID: ", docRef.id);
+        alert("User details stored!!");
+
+        // Redirect or do something else after successful registration
+      } catch (error) {
+        // Display error message
+        console.error("Error:", error.message);
+        alert(error.message);
+      }
+    });
+</script> 
+
+</html>
