@@ -167,4 +167,161 @@
     </div>
 
 </body>
+
+<script src="https://kit.fontawesome.com/fbb35875de.js" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script type="module">
+  // Import necessary Firebase modules
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyA1NgEx9i0gCwGvA97ouWZWQBkwuiAsrm0",
+    authDomain: "cleanup-connect-ebaae.firebaseapp.com",
+    projectId: "cleanup-connect-ebaae",
+    storageBucket: "cleanup-connect-ebaae.appspot.com",
+    messagingSenderId: "206124027034",
+    appId: "1:206124027034:web:423e5574fce9877e562323"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  
+  // Define the viewEventDetails function in the global scope
+  function viewEventDetails(eid) {
+    // Redirect to the event details page with the event ID as a parameter
+    window.location.href = `../Display Event/index.html?id=${eid}`;
+  }
+
+  document.addEventListener('DOMContentLoaded', async function () {
+      // Get user email from localStorage
+      const userEmail = localStorage.getItem('userEmail');
+
+      // Reference to the user document
+      const userDocRef = doc(db, 'Users', userEmail);
+
+      try {
+          // Get user document
+          const userDocSnapshot = await getDoc(userDocRef);
+          
+          if (userDocSnapshot.exists()) {
+              const userData = userDocSnapshot.data();
+              // Update profile info with user data
+              document.getElementById('user_val').innerText = userData.username || '';
+              document.getElementById('location_val').innerText = userData.city || '';
+              document.getElementById('email_val').innerText = userData.email || '';
+              document.getElementById('phone_val').innerText = userData.phone || '';
+              document.getElementById('bio_val').innerText = userData.bio || '';
+
+              // Get registered events
+              const registeredEvents = userData.eventsAttending || [];
+              const registeredEventsContainer = document.getElementById('registered_events');
+
+              console.log(registeredEvents);
+
+              if (registeredEvents.length > 0) {
+
+                  let i=0;
+                  registeredEventsContainer.innerHTML = '<ul>';
+                  registeredEvents.forEach(async (e) => {
+                    console.log(userEmail);
+                    console.log(12121);
+
+                      const eventDocRef = doc(db, 'Users', userEmail);
+                      const eventDocSnapshot = await getDoc(eventDocRef);
+                      if (eventDocSnapshot.exists()) {
+                          const eventData = eventDocSnapshot.data();
+                          const eventTitle = eventData.eventsAttending[i];
+                          const organizer = eventData.mail_organizers[i];
+                          const eid=eventData.event_ids[i];
+                          const card = document.createElement('div');
+                          card.classList.add('card');
+                          card.style.marginBottom = '20px'; // Add margin bottom to create space between cards
+
+                          card.innerHTML = `
+                              <div class="card-body">
+                                  <h5 class="card-title">${eventTitle}</h5>
+                                  <h6 class="card-subtitle mb-2 text-muted">Organizer: ${organizer}</h6>
+                                  <button class="btn btn-primary view-details-btn" data-id="${eid}">View Details</button>
+                              </div>
+                          `;
+                          registeredEventsContainer.appendChild(card);
+                          i++;
+                      }
+                  });
+                  registeredEventsContainer.innerHTML += '</ul>';
+              } else {
+                  registeredEventsContainer.innerHTML = '<p>No registered events</p>';
+              }
+
+
+              //Events Hosted
+
+              const HostedEvents = userData.registered_events || [];
+              const HostedEventsContainer = document.getElementById('hosted_events');
+
+              console.log(HostedEvents);
+
+
+              if (HostedEvents.length > 0) {
+
+              let i=0;
+              HostedEventsContainer.innerHTML = '<ul>';
+              HostedEvents.forEach(async (e) => {
+                console.log(userEmail);
+                console.log(12121);
+
+                  
+                      const card = document.createElement('div');
+                      card.classList.add('card');
+                      card.style.marginBottom = '20px'; // Add margin bottom to create space between cards
+
+                      card.innerHTML = `
+                          <div class="card-body">
+                              <h5 class="card-title">${e}</h5>
+                              <button class="btn btn-primary view-details-btn" data-id="${e}">View Details</button>
+                          </div>
+                      `;
+                      HostedEventsContainer.appendChild(card);
+                      i++;
+                  
+              });
+            HostedEventsContainer.innerHTML += '</ul>';
+          } else {
+          HostedEventsContainer.innerHTML = '<p>No hosted events</p>';
+        }
+
+
+
+
+          } else {
+              console.log('User document not found');
+          }
+      } catch (error) {
+          console.error('Error fetching user details:', error);
+      }
+  });
+
+  // Add event listener to the container for event delegation
+  document.getElementById('registered_events').addEventListener('click', function(event) {
+    if(event.target.classList.contains('view-details-btn')) {
+      // Retrieve the event ID from the data-id attribute
+      const eid = event.target.dataset.id;
+      // Redirect to the event details page with the event ID as a parameter
+      viewEventDetails(eid);
+    }
+  });
+  document.getElementById('hosted_events').addEventListener('click', function(event) {
+    if(event.target.classList.contains('view-details-btn')) {
+      // Retrieve the event ID from the data-id attribute
+      const eid = event.target.dataset.id;
+      // Redirect to the event details page with the event ID as a parameter
+      viewEventDetails(eid);
+    }
+  });
+</script>
+
 </html>
