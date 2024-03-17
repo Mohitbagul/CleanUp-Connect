@@ -8,8 +8,37 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <!-- Link to Custom CSS -->
   <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 </head>
 <body>
+  <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="cc1.jpg" style="height: 50px;width: 250px;margin-left: 30px;"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 200px;">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item" style="margin-left: 30px;">
+            <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
+          </li>
+          <li class="nav-item" style="margin-left: 30px;">
+            <a class="nav-link" href="/AboutUs/index.html">About-Us</a>
+          </li>
+          <li class="nav-item" style="margin-left: 30px;">
+            <a class="nav-link" href="/Events/Events.html">Events</a>
+          </li>
+          <li class="nav-item" style="margin-left: 30px;">
+            <a class="nav-link" href="/ProfilePage/index.html">User-dashboard</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <a href="login/login.html" class="button-link" style="margin-right: 40px;">Login</a>
+        </form>
+      </div>
+    </div>
+  </nav> -->
   <div class="container mt-5">
     <h2>Create Event</h2>
     <!-- Error Messages Display -->
@@ -94,11 +123,111 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
 
-  <!-- Include Firebase SDK and Firestore -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
-  <!-- Include Custom JavaScript -->
-  <script src="script.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, doc, getDoc, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1NgEx9i0gCwGvA97ouWZWQBkwuiAsrm0",
+      authDomain: "cleanup-connect-ebaae.firebaseapp.com",
+      databaseURL: "https://cleanup-connect-ebaae-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "cleanup-connect-ebaae",
+      storageBucket: "cleanup-connect-ebaae.appspot.com",
+      messagingSenderId: "206124027034",
+      appId: "1:206124027034:web:423e5574fce9877e562323"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById("createForm");
+    const errorMessages = document.getElementById("errorMessages");
+
+
+    const userEmail = localStorage.getItem("userEmail");
+
+      form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorMessages.innerHTML = ""; // Reset error messages
+
+      const errors = [];
+      const eventTitle = form.elements["eventTitle"].value.trim();
+      const eventDate = form.elements["eventDate"].value;
+      const eventTime = form.elements["eventTime"].value;
+      const eventLocation = form.elements["eventLocation"].value.trim();
+      const eventDescription = form.elements["eventDescription"].value.trim();
+
+      // Validate input fields
+      if (!eventTitle) errors.push("Please enter an Event Title");
+      if (!isValidDate(eventDate)) errors.push("Please enter a valid Event Date");
+      if (!isValidTime(eventTime)) errors.push("Please enter a valid Event Time");
+
+      // Display error messages
+      if (errors.length > 0) {
+        errors.forEach(error => {
+          const errorElement = document.createElement("div");
+          errorElement.classList.add("alert", "alert-danger");
+          errorElement.textContent = error;
+          errorMessages.appendChild(errorElement);
+        });
+        return; // Exit function if there are errors
+      }
+
+      try {
+        // Add the event to the Events collection
+        const eventsRef = collection(db, "Events");
+        const newEventRef = await addDoc(eventsRef, {
+          eventTitle,
+          organizerEmail: userEmail, // Store user email as organizer email
+          eventDate,
+          eventTime,
+          eventLocation,
+          eventDescription
+        });
+
+        // Get the ID of the newly created event
+        const newEventId = newEventRef.id;
+
+        // Update the user's document with the new event ID and title
+        const userDocRef = doc(db, "Users", userEmail);
+        const userDocSnapshot = await getDoc(userDocRef);
+
+        if (userDocSnapshot.exists()) {
+          const userData = userDocSnapshot.data();
+          const updatedHostedEvents = userData.hosted_events || [];
+          updatedHostedEvents.push({ eventId: newEventId, eventTitle: eventTitle }); // Store the event ID and title in hosted_events array
+          await setDoc(userDocRef, { hosted_events: updatedHostedEvents }, { merge: true });
+        }
+
+        // Inform the user that the event has been created successfully
+        alert("Event created successfully!");
+        form.reset(); // Reset the form
+      } catch (error) {
+        console.error("Error creating event:", error);
+        // Display error message to the user
+        const errorMessage = document.createElement("div");
+        errorMessage.classList.add("alert", "alert-danger");
+        errorMessage.textContent = "An error occurred while creating the event. Please try again later.";
+        errorMessages.appendChild(errorMessage);
+      }
+    });
+
+    // Custom Date Validation Function
+    function isValidDate(date) {
+      const today = new Date().toISOString().split("T")[0];
+      return date >= today;
+    }
+
+    // Custom Time Validation Function
+    function isValidTime(time) {
+      // Add your custom time validation logic here
+      return true;
+    }
+
+  </script>
+  
 </body>
 </html>
