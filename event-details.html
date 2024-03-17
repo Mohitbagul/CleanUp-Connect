@@ -75,7 +75,13 @@
                         <h2>Event Listing</h2>
                     </div>
                 </div>
+
                 <div class="col-lg-12">
+                    <div class="row">
+                        <ul id="eventsList">
+
+                        </ul>
+                    </div>
                     <ul>
                         <li>
                             <div class="row">
@@ -93,7 +99,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="main-dark-button">
-                                        <a href="event-info.html">View Details</a>
+                                        <a href="ticket-details.html">View Details</a>
                                     </div>
                                 </div>
                             </div>
@@ -346,6 +352,80 @@
     });
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+import { getFirestore , doc, getDoc, getDocs, collection, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Initialize Firebase
+  const firebaseConfig = {
+      apiKey: "AIzaSyA1NgEx9i0gCwGvA97ouWZWQBkwuiAsrm0",
+      authDomain: "cleanup-connect-ebaae.firebaseapp.com",
+      databaseURL: "https://cleanup-connect-ebaae-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "cleanup-connect-ebaae",
+      storageBucket: "cleanup-connect-ebaae.appspot.com",
+      messagingSenderId: "206124027034",
+      appId: "1:206124027034:web:423e5574fce9877e562323"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // Reference to the events collection
+  const eventsRef = db.collection("Events");
+
+  // Get all events and display them as cards
+  eventsRef.get().then((querySnapshot) => {
+    const eventsList = document.getElementById("eventsList");
+    
+    querySnapshot.forEach((doc) => {
+      const eventData = doc.data();
+
+      // Create HTML for each event card
+      const card = document.createElement("li");
+
+      
+
+      const cardHtml =
+      `<li style="width:1000px">
+                            <div class="row" >
+                                <div class="col-lg-3">
+                                    <div class="title">
+                                        <h4>${eventData.eventTitle}</h4>
+                                        <!-- <span>140 Tickets Available</span> -->
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="time"><span><i class="fa fa-clock-o"></i>${eventData.eventDate}<br>${eventData.eventTime}</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="place"><span><i class="fa fa-map-marker"></i>${eventData.eventLocation}</span></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="main-dark-button">
+                                         <a href="event-info.html?id=${eventData.eventTitle}" c ass="btn btn-primary">View Details</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                            </li>`
+      ;
+
+      console.log(doc.id);
+
+      card.innerHTML = cardHtml;
+      eventsList.appendChild(card);
+    });
+  }).catch((error) => {
+    console.log("Error getting events: ", error);
+  });
+});
+</script> 
+
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>
 
@@ -363,7 +443,7 @@
     <script src="assets/js/owl-carousel.js"></script>
     
     <!-- Global Init -->
-    <script src="assets/js/custom.js"></script>
+    <!-- <script src="assets/js/custom.js"></script> -->
 
   </body>
 
