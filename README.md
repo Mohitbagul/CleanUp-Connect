@@ -29,5 +29,3 @@ Cleanup Connect is a web platform dedicated to promoting environmental sustainab
 ## Conclusion
 Cleanup Connect is a powerful tool for driving positive environmental change, offering users the opportunity to make a meaningful difference in their local communities. With its user-friendly interface, innovative features, and robust tech stack, Cleanup Connect is poised to become a leading platform in the realm of environmental sustainability.
 
----
-Feel free to add more details or modify the README file as needed.
