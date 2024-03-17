@@ -217,7 +217,7 @@
               document.getElementById('bio_val').innerText = userData.bio || '';
 
               // Get registered events
-              const registeredEvents = userData.eventsAttending || [];
+              const registeredEvents = userData.registered_events || [];
               const registeredEventsContainer = document.getElementById('registered_events');
 
               console.log(registeredEvents);
@@ -229,28 +229,20 @@
                   registeredEvents.forEach(async (e) => {
                     console.log(userEmail);
                     console.log(12121);
+                        
+                      const card = document.createElement('div');
+                      card.classList.add('card');
+                      card.style.marginBottom = '20px'; // Add margin bottom to create space between cards
 
-                      const eventDocRef = doc(db, 'Users', userEmail);
-                      const eventDocSnapshot = await getDoc(eventDocRef);
-                      if (eventDocSnapshot.exists()) {
-                          const eventData = eventDocSnapshot.data();
-                          const eventTitle = eventData.eventsAttending[i];
-                          const organizer = eventData.mail_organizers[i];
-                          const eid=eventData.event_ids[i];
-                          const card = document.createElement('div');
-                          card.classList.add('card');
-                          card.style.marginBottom = '20px'; // Add margin bottom to create space between cards
-
-                          card.innerHTML = `
-                              <div class="card-body">
-                                  <h5 class="card-title">${eventTitle}</h5>
-                                  <h6 class="card-subtitle mb-2 text-muted">Organizer: ${organizer}</h6>
-                                  <button class="btn btn-primary view-details-btn" data-id="${eid}">View Details</button>
-                              </div>
-                          `;
+                      card.innerHTML = `
+                          <div class="card-body">
+                              <h5 class="card-title">${e}</h5>
+                              <button class="btn btn-primary view-details-btn" data-id="${e}">View Details</button>
+                          </div>
+                      `;
                           registeredEventsContainer.appendChild(card);
                           i++;
-                      }
+                      
                   });
                   registeredEventsContainer.innerHTML += '</ul>';
               } else {
@@ -260,7 +252,7 @@
 
               //Events Hosted
 
-              const HostedEvents = userData.registered_events || [];
+              const HostedEvents = userData.created_events || [];
               const HostedEventsContainer = document.getElementById('hosted_events');
 
               console.log(HostedEvents);
