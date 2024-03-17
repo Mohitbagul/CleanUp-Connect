@@ -127,14 +127,14 @@ https://www.tooplate.com/view/2125-artxibition
                                 <article id='tabs-1'>
                                     <div class="row">
                                         <div class="col-lg-9">
-                                            <div class="right-content" id="event-details">
-                                                <h4>Cerebra Integrated Technologies</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            <div class="right-content" id="event-details"style="width:700px">
+                                                <h4 id="business-name">Cerebra Integrated Technologies</h4>
+                                                <p id="business-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                                 </p>
                                                 <ul class="list">
-                                                    <li>Banglore, India</li>
-                                                    <li>citech@gmail.com</li>
-                                                    <li>+918877665544</li>
+                                                    <li id="business-loc">Banglore, India</li>
+                                                    <li id="business-mail">citech@gmail.com</li>
+                                                    <li id="business-num">+918877665544</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -244,4 +244,63 @@ https://www.tooplate.com/view/2125-artxibition
     <script src="assets/js/custom.js"></script>
 
   </body>
+
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+
+  <script type="module">
+
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+      import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+      import { doc, getDoc , addDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+    
+      const firebaseConfig = {
+        apiKey: "AIzaSyA1NgEx9i0gCwGvA97ouWZWQBkwuiAsrm0",
+        authDomain: "cleanup-connect-ebaae.firebaseapp.com",
+        databaseURL: "https://cleanup-connect-ebaae-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "cleanup-connect-ebaae",
+        storageBucket: "cleanup-connect-ebaae.appspot.com",
+        messagingSenderId: "206124027034",
+        appId: "1:206124027034:web:423e5574fce9877e562323"
+        };
+       
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        document.addEventListener("DOMContentLoaded", function() {
+        // Initialize Firebase
+ 
+        // Get the event ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = urlParams.get('id');
+        console.log(eventId);
+   
+        // Reference to the event document
+        const eventRef = db.collection("Business").doc(eventId);
+     
+        // Get the event details
+        eventRef.get().then((doc) => {
+          if (doc.exists) {
+            const eventData = doc.data();
+            console.log(eventData);
+
+            console.log(eventData.businessName,eventData.businessName);
+
+            document.getElementById("business-name").innerText = eventData.businessName;
+            document.getElementById("business-desc").innerText = eventData.businessDescription;
+            document.getElementById("business-loc").innerText = eventData.businessLocation;
+            document.getElementById("business-num").innerText = eventData.contactNumber;
+           
+            
+          } else {
+            // Doc doesn't exist
+            console.log("No such document!");
+          }
+        }).catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    });
+</script>
 </html>
