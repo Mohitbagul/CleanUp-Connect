@@ -181,43 +181,37 @@
               }
 
 
-              const HostedEvents = userData.events || [];
-              const HostedEventsContainer = document.getElementById('hosted_events');
+        // Get hosted events from the user's document
+const eventTitles = userData.eventTitles || [];
+const events = userData.events || [];
+const hostedEventsContainer = document.getElementById('hosted_events');
+console.log(eventTitles);
+console.log(events);
 
-              //Events Hosted
 
-              if (HostedEvents.length > 0) {
 
-              let i=0;
-              HostedEventsContainer.innerHTML = '<ul>';
-              HostedEvents.forEach(async (e) => {
-                console.log(userEmail);
-                console.log(12121);
+// Display hosted events
+if (eventTitles.length > 0) {
+  hostedEventsContainer.innerHTML = '<ul>';
+  eventTitles.forEach((title, index) => {
+    const eventId = events[index]; // Assuming events array has corresponding event IDs
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.style.marginBottom = '20px'; // Add margin bottom to create space between cards
 
-                  const eventDocRef = doc(db, 'Users', userEmail);
-                  const eventDocSnapshot = await getDoc(eventDocRef);
-                  if (eventDocSnapshot.exists()) {
-                      const eventData = eventDocSnapshot.data();
-                      const eventTitle = eventData.eventTitles[i];
-                      const eid=eventData.events[i];
-                      const card = document.createElement('div');
-                      card.classList.add('card');
-                      card.style.marginBottom = '20px'; // Add margin bottom to create space between cards
+    card.innerHTML = `
+      <div class="card-body">
+        <h5 class="card-title">${title}</h5>
+        <button class="btn btn-primary view-details-btn" data-id="${eventId}">View Details</button>
+      </div>
+    `;
+    hostedEventsContainer.appendChild(card);
+  });
+  hostedEventsContainer.innerHTML += '</ul>';
+} else {
+  hostedEventsContainer.innerHTML = '<p>No hosted events</p>';
+}
 
-                      card.innerHTML = `
-                          <div class="card-body">
-                              <h5 class="card-title">${eventTitle}</h5>
-                              <button class="btn btn-primary view-details-btn" data-id="${eid}">View Details</button>
-                          </div>
-                      `;
-                      HostedEventsContainer.appendChild(card);
-                      i++;
-                  }
-              });
-            HostedEventsContainer.innerHTML += '</ul>';
-          } else {
-          HostedEventsContainer.innerHTML = '<p>No hosted events</p>';
-        }
 
 
 
