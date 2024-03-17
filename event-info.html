@@ -222,37 +222,42 @@ https://www.tooplate.com/view/2125-artxibition
         const rsvpButton = document.getElementById("rsvp-button");
 
     rsvpButton.addEventListener("click", function() {
-      event.preventDefault(); 
-        console.log(12121);
-        
+    event.preventDefault();
+    console.log(12121);
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventId = urlParams.get('id');
 
-        const userEmail = localStorage.getItem('userEmail');
-        const eventDocRef = db.collection("Events").doc(eventId);
-        
-        eventDocRef.update({
-          participants: firebase.firestore.FieldValue.arrayUnion(userEmail)
-        })
-        .then(() => {
-            console.log("User RSVPed for event:", eventId);
-        })
-        .catch((error) => {
-            console.error("Error RSVPing for event:", error);
-        });
+    const userEmail = localStorage.getItem('userEmail');
+    const userName = localStorage.getItem('userName'); // Assuming you have stored the user's name as well
+    
+    const eventDocRef = db.collection("Events").doc(eventId);
 
-        const userDocRef = db.collection("Users").doc(userEmail);
-        
-        userDocRef.update({
-          registered_events: firebase.firestore.FieldValue.arrayUnion(eventId)
-        })
-        .then(() => {
-            alert("data stored!!");
-        })
-        .catch((error) => {
-            console.error("Error RSVPing for event:", error);
-        });
-
-        console.log("RSVP clicked for event:", eventId);
+    // Update the participants array in the event document
+    eventDocRef.update({
+        participants: firebase.firestore.FieldValue.arrayUnion({ email: userEmail, name: userName })
+    })
+    .then(() => {
+        console.log("User RSVPed for event:", eventId);
+    })
+    .catch((error) => {
+        console.error("Error RSVPing for event:", error);
     });
+
+    const userDocRef = db.collection("Users").doc(userEmail);
+
+    // Update the registered_events array in the user document
+    userDocRef.update({
+        registered_events: firebase.firestore.FieldValue.arrayUnion(eventId)
+    })
+    .then(() => {
+        console.log("Event added to registered events for user:", userEmail);
+    })
+    .catch((error) => {
+        console.error("Error updating user document:", error);
+    });
+
+    console.log("RSVP clicked for event:", eventId);
+});
 
         document.addEventListener("DOMContentLoaded", function() {
         // Initialize Firebase
