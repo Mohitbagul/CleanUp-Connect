@@ -216,14 +216,15 @@ https://www.tooplate.com/view/2125-artxibition
        
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = urlParams.get('id');
 
         const rsvpButton = document.getElementById("rsvp-button");
 
     rsvpButton.addEventListener("click", function() {
       event.preventDefault(); 
         console.log(12121);
-        const urlParams = new URLSearchParams(window.location.search);
-        const eventId = urlParams.get('id');
+        
 
         const userEmail = localStorage.getItem('userEmail');
         const eventDocRef = db.collection("Events").doc(eventId);
