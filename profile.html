@@ -55,57 +55,62 @@
 
 
     <div class="profile-container">
-        <div class="profile-left-container">
-            <div class="profile-left">
-                <div class="profile-picture">
-                    <div class="profile-image-container">
-                        <img src="profile.jpg">
-                        <div class="edit-overlay">
-                            <!-- The pencil icon doesnt work yet -->
-                            <a href="#" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i></a>
-                        </div>
-                    </div>
-                </div>                
-                <div class="profile-info" id="profile_data">
-                  <h1 id="user_val"></h1>
-                  <p id="location_val"><strong>Location:</strong> </p>
-                  <p id="email_val"><strong>Email:</strong> </p>
-                  <p id="phone_val"><strong>Phone:</strong> </p>
-                  <p id="bio_val"><strong>Bio:</strong></p>
-              </div>
-
-                <!-- <div class="badges-section">
-                  <h2>Badges</h2>
-                  
-                </div> -->
-                <a href="editprofile.html" class="edit-profile-button">Edit Profile</a>
-
-            </div>
-        </div>
-        <div class="profile-right-container">
-            <div class="profile-right">
-              <div class="profile-right-top">
-                <div class="event-history">
-                    <h2>Registered Events</h2>
-                    <div id="registered_events">
-
-                    </div>
-                </div>
-              </div>
-                <!-- <div class="certificates-section">
-                  <h2>Certificates</h2>
-                  
-                </div> -->
-              <div class="profile-right-bottom"></div>
-                <div class="events-hosted">
-                  <h2>Hosted Events</h2>
-                  <div id="hosted_events">
-
+      <!-- Profile Left Container -->
+      <div class="profile-left-container">
+          <div class="profile-left">
+              <!-- Profile Picture and Info -->
+              <div class="profile-picture">
+                  <!-- Profile Picture -->
+                  <div class="profile-image-container">
+                      <img src="profile.jpg">
+                      <div class="edit-overlay">
+                          <!-- The pencil icon doesn't work yet -->
+                          <a href="#" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i></a>
+                      </div>
                   </div>
-               </div>
+                  <!-- Profile Info -->
+                  <div class="profile-info" id="profile_data">
+                      <h1 id="user_val"></h1>
+                      <p id="location_val"><strong>Location:</strong> </p>
+                      <p id="email_val"><strong>Email:</strong> </p>
+                      <p id="phone_val"><strong>Phone:</strong> </p>
+                      <p id="bio_val"><strong>Bio:</strong></p>
+                  </div>
+  
+                  <!-- Edit Profile Button -->
+                  <a href="editprofile.html" class="edit-profile-button">Edit Profile</a>
               </div>
-            </div>
-        </div>
+          </div>
+      </div>
+  
+      <!-- Profile Right Container -->
+      <div class="profile-right-container">
+          <div class="profile-right">
+              <!-- Registered Events -->
+              <div class="profile-right-top">
+                  <div class="event-history">
+                      <h2>Registered Events</h2>
+                      <div id="registered_events">
+                          <!-- Event Cards will be added here -->
+                      </div>
+                      <div id="registered_pagination" class="pagination"></div>
+                  </div>
+              </div>
+  
+              <!-- Hosted Events -->
+              <div class="profile-right-bottom">
+                  <div class="events-hosted">
+                      <h2>Hosted Events</h2>
+                      <div id="hosted_events">
+                          <!-- Event Cards will be added here -->
+                      </div>
+                      <div id="hosted_pagination" class="pagination"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
         
         
         <!-- Footer Section -->
@@ -188,132 +193,117 @@
   };
 
   const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  
-  // Define the viewEventDetails function in the global scope
-  function viewEventDetails(eid) {
-    // Redirect to the event details page with the event ID as a parameter
-    window.location.href = `../Display Event/index.html?id=${eid}`;
-  }
-
-  document.addEventListener('DOMContentLoaded', async function () {
-      // Get user email from localStorage
-      const userEmail = localStorage.getItem('userEmail');
-
-      // Reference to the user document
-      const userDocRef = doc(db, 'Users', userEmail);
-
-      try {
-          // Get user document
-          const userDocSnapshot = await getDoc(userDocRef);
-          
-          if (userDocSnapshot.exists()) {
-              const userData = userDocSnapshot.data();
-              // Update profile info with user data
-              document.getElementById('user_val').innerText = userData.username || '';
-              document.getElementById('location_val').innerText = userData.city || '';
-              document.getElementById('email_val').innerText = userData.email || '';
-              document.getElementById('phone_val').innerText = userData.phone || '';
-              document.getElementById('bio_val').innerText = userData.bio || '';
-
-              // Get registered events
-              const registeredEvents = userData.registered_events || [];
-              const registeredEventsContainer = document.getElementById('registered_events');
-
-              console.log(registeredEvents);
-
-              if (registeredEvents.length > 0) {
-
-                  let i=0;
-                  registeredEventsContainer.innerHTML = '<ul>';
-                  registeredEvents.forEach(async (e) => {
-                    console.log(userEmail);
-                    console.log(12121);
-                        
-                      const card = document.createElement('div');
-                      card.classList.add('card');
-                      card.style.marginBottom = '20px'; // Add margin bottom to create space between cards
-
-                      card.innerHTML = `
-                          <div class="card-body">
-                              <h5 class="card-title">${e}</h5>
-                              <button class="btn btn-primary view-details-btn" data-id="${e}">View Details</button>
-                          </div>
-                      `;
-                          registeredEventsContainer.appendChild(card);
-                          i++;
-                      
-                  });
-                  registeredEventsContainer.innerHTML += '</ul>';
-              } else {
-                  registeredEventsContainer.innerHTML = '<p>No registered events</p>';
-              }
-
-
-              //Events Hosted
-
-              const HostedEvents = userData.created_events || [];
-              const HostedEventsContainer = document.getElementById('hosted_events');
-
-              console.log(HostedEvents);
-
-
-              if (HostedEvents.length > 0) {
-
-              let i=0;
-              HostedEventsContainer.innerHTML = '<ul>';
-              HostedEvents.forEach(async (e) => {
-                console.log(userEmail);
-                console.log(12121);
-
-                  
-                      const card = document.createElement('div');
-                      card.classList.add('card');
-                      card.style.marginBottom = '20px'; // Add margin bottom to create space between cards
-
-                      card.innerHTML = `
-                          <div class="card-body">
-                              <h5 class="card-title">${e}</h5>
-                              <button class="btn btn-primary view-details-btn" data-id="${e}">View Details</button>
-                          </div>
-                      `;
-                      HostedEventsContainer.appendChild(card);
-                      i++;
-                  
-              });
-            HostedEventsContainer.innerHTML += '</ul>';
-          } else {
-          HostedEventsContainer.innerHTML = '<p>No hosted events</p>';
+        const db = getFirestore(app);
+      
+        // Define the viewEventDetails function in the global scope
+        function viewEventDetails(eid) {
+            // Redirect to the event details page with the event ID as a parameter
+            window.location.href = `../Display Event/index.html?id=${eid}`;
         }
 
+        document.addEventListener('DOMContentLoaded', async function () {
+            // Get user email from localStorage
+            const userEmail = localStorage.getItem('userEmail');
 
+            // Reference to the user document
+            const userDocRef = doc(db, 'Users', userEmail);
 
+            try {
+                // Get user document
+                const userDocSnapshot = await getDoc(userDocRef);
+                
+                if (userDocSnapshot.exists()) {
+                    const userData = userDocSnapshot.data();
+                    // Update profile info with user data
+                    document.getElementById('user_val').innerText = userData.username || '';
+                    document.getElementById('location_val').innerText = userData.city || '';
+                    document.getElementById('email_val').innerText = userData.email || '';
+                    document.getElementById('phone_val').innerText = userData.phone || '';
+                    document.getElementById('bio_val').innerText = userData.bio || '';
 
-          } else {
-              console.log('User document not found');
-          }
-      } catch (error) {
-          console.error('Error fetching user details:', error);
-      }
-  });
+                    // Paginate and display Registered Events
+                    displayEvents(userData.registered_events || [], 'registered_events', 'registered_pagination');
 
-  // Add event listener to the container for event delegation
-  document.getElementById('registered_events').addEventListener('click', function(event) {
-    if(event.target.classList.contains('view-details-btn')) {
-      // Retrieve the event ID from the data-id attribute
-      const eid = event.target.dataset.id;
-      // Redirect to the event details page with the event ID as a parameter
-      viewEventDetails(eid);
-    }
-  });
-  document.getElementById('hosted_events').addEventListener('click', function(event) {
-    if(event.target.classList.contains('view-details-btn')) {
-      // Retrieve the event ID from the data-id attribute
-      const eid = event.target.dataset.id;
-      // Redirect to the event details page with the event ID as a parameter
-      viewEventDetails(eid);
-    }
-  });
-</script>
+                    // Paginate and display Hosted Events
+                    displayEvents(userData.created_events || [], 'hosted_events', 'hosted_pagination');
+
+                } else {
+                    console.log('User document not found');
+                }
+            } catch (error) {
+                console.error('Error fetching user details:', error);
+            }
+        });
+
+        // Function to display events with pagination
+        function displayEvents(events, containerId, paginationId) {
+            const eventsContainer = document.getElementById(containerId);
+            const paginationContainer = document.getElementById(paginationId);
+
+            const eventsPerPage = 3; // Number of events per page
+            const totalPages = Math.ceil(events.length / eventsPerPage);
+
+            // Function to display events for a given page
+            function showEvents(page) {
+                eventsContainer.innerHTML = ''; // Clear previous events
+
+                const startIndex = (page - 1) * eventsPerPage;
+                const endIndex = Math.min(startIndex + eventsPerPage, events.length); // Avoid index out of bounds
+                const displayedEvents = events.slice(startIndex, endIndex);
+
+                displayedEvents.forEach((e) => {
+                    const card = document.createElement('div');
+                    card.classList.add('card');
+                    card.style.marginBottom = '20px'; // Add margin bottom to create space between cards
+
+                    card.innerHTML = `
+                        <div class="card-body">
+                            <h5 class="card-title">${e}</h5>
+                            <button class="btn btn-primary view-details-btn" data-id="${e}">View Details</button>
+                        </div>
+                    `;
+                    eventsContainer.appendChild(card);
+                });
+            }
+
+            // Function to create pagination buttons
+            function createPaginationButtons() {
+                paginationContainer.innerHTML = '';
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const button = document.createElement('button');
+                    button.innerText = i;
+                    button.classList.add('pagination-btn');
+
+                    button.addEventListener('click', () => {
+                        showEvents(i);
+                    });
+
+                    paginationContainer.appendChild(button);
+                }
+            }
+
+            // Show the first page of events
+            showEvents(1);
+            // Create pagination buttons
+            createPaginationButtons();
+        }
+
+        // Add event listener to the container for event delegation (Registered Events)
+        document.getElementById('registered_events').addEventListener('click', function (event) {
+            if (event.target.classList.contains('view-details-btn')) {
+                const eid = event.target.dataset.id;
+                viewEventDetails(eid);
+            }
+        });
+
+        // Add event listener to the container for event delegation (Hosted Events)
+        document.getElementById('hosted_events').addEventListener('click', function (event) {
+            if (event.target.classList.contains('view-details-btn')) {
+                const eid = event.target.dataset.id;
+                viewEventDetails(eid);
+            }
+        });
+    </script>
 
 </html>
