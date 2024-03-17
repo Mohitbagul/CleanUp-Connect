@@ -72,18 +72,18 @@ https://www.tooplate.com/view/2125-artxibition
                                 <article id='tabs-1'>
                                     <div class="row">
                                         <div class="col-lg-9">
-                                            <div class="right-content" id="event-details">
-                                                <h4>Rotary Club CleanUp Event Pune</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            <div class="right-content" id="event-details" style="width: 1000px;">
+                                                <h4 id="event-name">Rotary Club CleanUp Event Pune</h4>
+                                                <p id="event-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                                 </p>
                                                 <ul class="list">
-                                                    <li>Akurdi, PCMC</li>
-                                                    <li>12 February 2003</li>
-                                                    <li>7 am</li>
+                                                    <li id="event-loc">Akurdi, PCMC</li>
+                                                    <li id="event-date">12 February 2003</li>
+                                                    <li id="event-time">7 am</li>
                                                 </ul>
-                                                <div class="RSVP button" >
-                                                    <a href="ticket-details.html">RSVP</a>
-                                                </div>
+                                                <!-- <div class="RSVP button" >
+                                                    <button id="rsvp-button">RSVP</a>
+                                                </div> -->
                                             </div>
                                             
                                         </div>
@@ -108,7 +108,7 @@ https://www.tooplate.com/view/2125-artxibition
         <div class="row">
             <div class="col-lg-12">
                 <div class="text-center">
-                    <a href="#" class="btn btn-primary" style="background-color: black; color: white;">RSVP</a>
+                    <a class="btn btn-primary" style="background-color: black; color: white;" id="rsvp-button">RSVP</a>
                 </div>
             </div>
         </div>
@@ -146,8 +146,7 @@ https://www.tooplate.com/view/2125-artxibition
             <li><a href="#home">Home</a></li>
             <li><a href="#event_display">Events</a></li>
             <li><a href="#aboutus">About Us</a></li>
-            <li><a href="#Contact us">Contact Us</a></li>
-            
+            <li><a href="#Contact us">Contact Us</a></li> 
           </ul>
         </div>
       </div>
@@ -190,7 +189,100 @@ https://www.tooplate.com/view/2125-artxibition
     <script src="assets/js/owl-carousel.js"></script>
     
     <!-- Global Init -->
-    <script src="assets/js/custom.js"></script>
+    <!-- <script src="assets/js/custom.js"></script> -->
 
   </body>
+
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+
+  <script type="module">
+
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+      import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+      import { doc, getDoc , addDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+    
+      const firebaseConfig = {
+        apiKey: "AIzaSyA1NgEx9i0gCwGvA97ouWZWQBkwuiAsrm0",
+        authDomain: "cleanup-connect-ebaae.firebaseapp.com",
+        databaseURL: "https://cleanup-connect-ebaae-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "cleanup-connect-ebaae",
+        storageBucket: "cleanup-connect-ebaae.appspot.com",
+        messagingSenderId: "206124027034",
+        appId: "1:206124027034:web:423e5574fce9877e562323"
+        };
+       
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const rsvpButton = document.getElementById("rsvp-button");
+
+    rsvpButton.addEventListener("click", function() {
+      event.preventDefault(); 
+        console.log(12121);
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = urlParams.get('id');
+
+        const userEmail = localStorage.getItem('userEmail');
+        const eventDocRef = db.collection("Events").doc(eventId);
+        
+        eventDocRef.update({
+          participants: firebase.firestore.FieldValue.arrayUnion(userEmail)
+        })
+        .then(() => {
+            console.log("User RSVPed for event:", eventId);
+        })
+        .catch((error) => {
+            console.error("Error RSVPing for event:", error);
+        });
+        
+
+        console.log("RSVP clicked for event:", eventId);
+    });
+
+        document.addEventListener("DOMContentLoaded", function() {
+        // Initialize Firebase
+
+        
+        // eventId="t1";
+        console.log(eventId);
+
+        
+ 
+        // Get the event ID from the URL
+        
+        console.log(eventId);
+
+        const userEmail = localStorage.getItem('userEmail');
+   
+        // Reference to the event document
+        const eventRef = db.collection("Events").doc(eventId);
+        const userRef = db.collection("Events").doc(userEmail);
+     
+        // Get the event details
+        eventRef.get().then((doc) => {
+          if (doc.exists) {
+            const eventData = doc.data();
+            console.log(eventData);
+
+            // console.log(eventData.businessName,eventData.businessName);
+
+            document.getElementById("event-name").innerText = eventData.eventTitle;
+            document.getElementById("event-desc").innerText = eventData.eventDescription;
+            document.getElementById("event-loc").innerText = eventData.eventLocation;
+            document.getElementById("event-date").innerText = eventData.eventDate;
+            document.getElementById("event-time").innerText = eventData.eventTime;
+          } else {
+            // Doc doesn't exist
+            console.log("No such document!");
+          }
+        }).catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    });
+</script>
+
+
 </html>
