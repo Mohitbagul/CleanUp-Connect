@@ -146,13 +146,15 @@
     const form = document.getElementById("createForm");
     const errorMessages = document.getElementById("errorMessages");
 
-    form.addEventListener("submit", async (e) => {
+
+    const userEmail = localStorage.getItem("userEmail");
+
+      form.addEventListener("submit", async (e) => {
       e.preventDefault();
       errorMessages.innerHTML = ""; // Reset error messages
 
       const errors = [];
       const eventTitle = form.elements["eventTitle"].value.trim();
-      const organizerEmail = form.elements["organizerEmail"].value.trim();
       const eventDate = form.elements["eventDate"].value;
       const eventTime = form.elements["eventTime"].value;
       const eventLocation = form.elements["eventLocation"].value.trim();
@@ -160,7 +162,6 @@
 
       // Validate input fields
       if (!eventTitle) errors.push("Please enter an Event Title");
-      if (!isValidEmail(organizerEmail)) errors.push("Please enter a valid Organizer's Gmail/Email");
       if (!isValidDate(eventDate)) errors.push("Please enter a valid Event Date");
       if (!isValidTime(eventTime)) errors.push("Please enter a valid Event Time");
 
@@ -180,7 +181,7 @@
         const eventsRef = collection(db, "Events");
         const newEventRef = await addDoc(eventsRef, {
           eventTitle,
-          organizerEmail,
+          organizerEmail: userEmail, // Store user email as organizer email
           eventDate,
           eventTime,
           eventLocation,
@@ -191,7 +192,7 @@
         const newEventId = newEventRef.id;
 
         // Update the user's document with the new event ID and title
-        const userDocRef = doc(db, "Users", organizerEmail);
+        const userDocRef = doc(db, "Users", userEmail);
         const userDocSnapshot = await getDoc(userDocRef);
 
         if (userDocSnapshot.exists()) {
@@ -214,12 +215,6 @@
       }
     });
 
-    // Custom Email Validation Function
-    function isValidEmail(email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
-    }
-
     // Custom Date Validation Function
     function isValidDate(date) {
       const today = new Date().toISOString().split("T")[0];
@@ -231,6 +226,7 @@
       // Add your custom time validation logic here
       return true;
     }
+
   </script>
   
 </body>
