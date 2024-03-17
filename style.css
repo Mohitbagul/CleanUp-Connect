@@ -3,10 +3,53 @@
   testinomial
   FAQ
 */
+.main-content {
+  display: flex;
+   justify-content: center;
+ /* align-items: center;
+  height: 100vh; */
+}
 
+.main-white-button {
+  margin: 10px;
+  padding: 20px 40px;
+  background-color: #fff;
+  color: #333;
+  border: 2px solid #333;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
 
+.main-white-button:hover {
+  background-color: #333;
+  color: #fff;
+}
 
+/* Additional styles for specific buttons */
+.create-event-button {
+  background-color: #ffa500;
+  border-color: #ffa500;
+}
 
+.create-event-button:hover {
+  background-color: #f90;
+  border-color: #f90;
+}
+
+.register-business-button {
+  background-color: #3cb371;
+  border-color: #3cb371;
+}
+
+.register-business-button:hover {
+  background-color: #2e8b57;
+  border-color: #2e8b57;
+}
 
 
   /* footer */
